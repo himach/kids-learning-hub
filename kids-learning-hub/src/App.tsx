@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider, createTheme, Box } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { ThemeProvider, createTheme, Box, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Import components
@@ -37,17 +37,34 @@ const theme = createTheme({
 });
 
 const ActivityLayout = () => {
+  const location = useLocation();
+  const kidName = location.state?.kidName || 'Friend';
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Box sx={{ position: 'fixed', top: 0, right: 0, p: 2, zIndex: 1000 }}>
+      <Box sx={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        right: 0, 
+        p: 2, 
+        zIndex: 1000,
+        backgroundColor: 'background.default',
+        borderBottom: '2px solid #4CAF50'
+      }}>
+        <Typography variant="h4" align="center" color="primary" sx={{ mb: 2 }}>
+          {kidName}'s Learning Adventure
+        </Typography>
+      </Box>
+      <Box sx={{ position: 'fixed', top: 100, right: 0, p: 2, zIndex: 1000 }}>
         <ActivityTimer />
       </Box>
-      <Box sx={{ mt: 8, p: 2 }}>
+      <Box sx={{ mt: 16, p: 2 }}>
         <Routes>
           <Route path="math" element={<MathActivity />} />
           <Route path="game" element={<GameActivity />} />
           <Route path="reading" element={<ReadingActivity />} />
-          <Route path="*" element={<Navigate to="math" replace />} />
+          <Route path="*" element={<Navigate to="math" replace state={{ kidName }} />} />
         </Routes>
       </Box>
     </Box>

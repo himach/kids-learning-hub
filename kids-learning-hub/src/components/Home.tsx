@@ -17,9 +17,14 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 const Home = () => {
   const navigate = useNavigate();
   const [totalTime, setTotalTime] = useState(30);
+  const [kidName, setKidName] = useState('');
 
   const handleStart = () => {
-    navigate('/timer', { state: { totalTime } });
+    if (!kidName.trim()) {
+      alert('Please enter your name to start!');
+      return;
+    }
+    navigate('/timer', { state: { totalTime, kidName } });
   };
 
   return (
@@ -36,16 +41,30 @@ const Home = () => {
           <Grid container spacing={3} alignItems="center">
             <Grid item xs={12}>
               <Typography variant="h6" gutterBottom>
-                Set Your Learning Time
+                Let's Get Started!
               </Typography>
               <TextField
-                type="number"
-                label="Total Minutes"
-                value={totalTime}
-                onChange={(e) => setTotalTime(Number(e.target.value))}
-                InputProps={{ inputProps: { min: 15, max: 120 } }}
-                sx={{ width: 200 }}
+                label="Your Name"
+                value={kidName}
+                onChange={(e) => setKidName(e.target.value)}
+                sx={{ width: 200, mb: 2 }}
+                required
+                error={!kidName.trim()}
+                helperText={!kidName.trim() ? "Please enter your name" : ""}
               />
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Set Your Learning Time
+                </Typography>
+                <TextField
+                  type="number"
+                  label="Total Minutes"
+                  value={totalTime}
+                  onChange={(e) => setTotalTime(Number(e.target.value))}
+                  InputProps={{ inputProps: { min: 15, max: 120 } }}
+                  sx={{ width: 200 }}
+                />
+              </Box>
             </Grid>
             <Grid item xs={12}>
               <Button
@@ -54,6 +73,7 @@ const Home = () => {
                 startIcon={<TimerIcon />}
                 onClick={handleStart}
                 sx={{ mt: 2 }}
+                disabled={!kidName.trim()}
               >
                 Start Learning Session
               </Button>

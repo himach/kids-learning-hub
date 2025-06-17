@@ -20,6 +20,7 @@ const ActivityTimer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const totalTime = location.state?.totalTime || 30;
+  const kidName = location.state?.kidName || 'Friend';
   const [timeLeft, setTimeLeft] = useState(totalTime * 60);
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
   const [isActive, setIsActive] = useState(true);
@@ -41,11 +42,11 @@ const ActivityTimer = () => {
             if (currentActivityIndex < activities.length - 1) {
               const nextIndex = currentActivityIndex + 1;
               setCurrentActivityIndex(nextIndex);
-              navigate(activities[nextIndex].path);
+              navigate(activities[nextIndex].path, { state: { totalTime, kidName } });
               return activities[nextIndex].duration * 60;
             } else {
               setIsActive(false);
-              navigate('/');
+              navigate('/', { state: { kidName } });
               return 0;
             }
           }
@@ -55,7 +56,7 @@ const ActivityTimer = () => {
     }
 
     return () => clearInterval(interval);
-  }, [isActive, timeLeft, currentActivityIndex, activities, navigate]);
+  }, [isActive, timeLeft, currentActivityIndex, activities, navigate, totalTime, kidName]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -64,48 +65,55 @@ const ActivityTimer = () => {
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 2, backgroundColor: '#fff', maxWidth: 300 }}>
-      <Typography variant="h6" gutterBottom>
-        {activities[currentActivityIndex].name} Time!
-      </Typography>
-      
-      <Box sx={{ position: 'relative', display: 'inline-flex', mt: 1 }}>
-        <CircularProgress
-          variant="determinate"
-          value={(timeLeft / (activities[currentActivityIndex].duration * 60)) * 100}
-          size={100}
-          thickness={4}
-        />
-        <Box
-          sx={{
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            position: 'absolute',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography variant="h6" component="div" color="text.secondary">
-            {formatTime(timeLeft)}
+    <Container maxWidth="md">
+      <Box sx={{ mt: 4, textAlign: 'center' }}>
+        <Typography variant="h4" gutterBottom color="primary">
+          {kidName}'s Learning Time!
+        </Typography>
+        <Paper elevation={3} sx={{ p: 4, mt: 2, backgroundColor: '#fff', maxWidth: 400, mx: 'auto' }}>
+          <Typography variant="h5" gutterBottom>
+            {activities[currentActivityIndex].name} Activity
           </Typography>
-        </Box>
-      </Box>
+          
+          <Box sx={{ position: 'relative', display: 'inline-flex', mt: 2 }}>
+            <CircularProgress
+              variant="determinate"
+              value={(timeLeft / (activities[currentActivityIndex].duration * 60)) * 100}
+              size={120}
+              thickness={4}
+            />
+            <Box
+              sx={{
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                position: 'absolute',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography variant="h4" component="div" color="text.secondary">
+                {formatTime(timeLeft)}
+              </Typography>
+            </Box>
+          </Box>
 
-      <Box sx={{ mt: 2 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setIsActive(!isActive)}
-          startIcon={<TimerIcon />}
-          size="small"
-        >
-          {isActive ? 'Pause' : 'Resume'}
-        </Button>
+          <Box sx={{ mt: 3 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setIsActive(!isActive)}
+              startIcon={<TimerIcon />}
+              size="large"
+            >
+              {isActive ? 'Pause' : 'Resume'}
+            </Button>
+          </Box>
+        </Paper>
       </Box>
-    </Paper>
+    </Container>
   );
 };
 
