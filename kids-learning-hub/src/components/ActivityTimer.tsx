@@ -4,7 +4,7 @@ import {
   Container,
   Box,
   Typography,
-  CircularProgress,
+  LinearProgress,
   Paper,
   Button,
 } from '@mui/material';
@@ -67,51 +67,39 @@ const ActivityTimer = () => {
   return (
     <Container maxWidth="md">
       <Box sx={{ mt: 4, textAlign: 'center' }}>
-        <Typography variant="h4" gutterBottom color="primary">
-          {kidName}'s Learning Time!
-        </Typography>
-        <Paper elevation={3} sx={{ p: 4, mt: 2, backgroundColor: '#fff', maxWidth: 400, mx: 'auto' }}>
-          <Typography variant="h5" gutterBottom>
-            {activities[currentActivityIndex].name} Activity
-          </Typography>
-          
-          <Box sx={{ position: 'relative', display: 'inline-flex', mt: 2 }}>
-            <CircularProgress
-              variant="determinate"
-              value={(timeLeft / (activities[currentActivityIndex].duration * 60)) * 100}
-              size={120}
-              thickness={4}
-            />
-            <Box
-              sx={{
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                position: 'absolute',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography variant="h4" component="div" color="text.secondary">
-                {formatTime(timeLeft)}
-              </Typography>
-            </Box>
-          </Box>
-
-          <Box sx={{ mt: 3 }}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{
+            width: '100%',
+            maxWidth: 400,
+            backgroundColor: '#e3f2fd',
+            boxShadow: 2,
+            py: 1,
+            px: 2,
+            borderRadius: 2,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 2,
+            mx: 'auto',
+          }}>
+            <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold', mr: 2 }}>
+              {activities[currentActivityIndex].name} Activity
+            </Typography>
+            <TimerIcon color="primary" sx={{ mr: 1 }} />
+            <Typography variant="h5" sx={{ fontWeight: 'bold', mr: 2 }}>
+              {formatTime(timeLeft)}
+            </Typography>
             <Button
               variant="contained"
               color="primary"
               onClick={() => setIsActive(!isActive)}
-              startIcon={<TimerIcon />}
-              size="large"
+              size="medium"
+              sx={{ minWidth: 110, fontWeight: 'bold', boxShadow: 3 }}
             >
               {isActive ? 'Pause' : 'Resume'}
             </Button>
           </Box>
-        </Paper>
+        </Box>
       </Box>
     </Container>
   );

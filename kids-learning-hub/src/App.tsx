@@ -56,10 +56,31 @@ const ActivityLayout = () => {
           {kidName}'s Learning Adventure
         </Typography>
       </Box>
-      <Box sx={{ position: 'fixed', top: 100, right: 0, p: 2, zIndex: 1000 }}>
+      <Box
+        sx={{
+          width: '100%',
+          mt: { xs: 10, md: 10 },
+          mb: 2,
+          px: { xs: 0, md: 4 },
+          py: 2,
+          backgroundColor: '#e3f2fd',
+          boxShadow: 2,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <ActivityTimer />
       </Box>
-      <Box sx={{ mt: 16, p: 2 }}>
+      <Box
+        sx={{
+          mt: 2,
+          p: 2,
+          width: '100%',
+          maxWidth: 900,
+          mx: 'auto',
+        }}
+      >
         <Routes>
           <Route path="math" element={<MathActivity />} />
           <Route path="game" element={<GameActivity />} />
