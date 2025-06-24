@@ -7,7 +7,6 @@ import {
   Button,
   TextField,
   Paper,
-  Grid,
 } from '@mui/material';
 import TimerIcon from '@mui/icons-material/Timer';
 import SchoolIcon from '@mui/icons-material/School';
@@ -38,8 +37,8 @@ const Home = () => {
         </Typography>
 
         <Paper elevation={3} sx={{ p: 4, mt: 4, backgroundColor: '#fff' }}>
-          <Grid container spacing={3} alignItems="center">
-            <Grid item xs={12}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+            <Box sx={{ width: '100%', textAlign: 'center' }}>
               <Typography variant="h6" gutterBottom>
                 Let's Get Started!
               </Typography>
@@ -65,8 +64,8 @@ const Home = () => {
                   sx={{ width: 200 }}
                 />
               </Box>
-            </Grid>
-            <Grid item xs={12}>
+            </Box>
+            <Box>
               <Button
                 variant="contained"
                 size="large"
@@ -77,39 +76,38 @@ const Home = () => {
               >
                 Start Learning Session
               </Button>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Paper>
 
-        <Grid container spacing={3} sx={{ mt: 4 }}>
-          <Grid item xs={12} md={4}>
-            <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
-              <SchoolIcon sx={{ fontSize: 60, color: 'primary.main' }} />
-              <Typography variant="h6">Math Activities</Typography>
-              <Typography variant="body2" color="text.secondary">
-                Fun math problems and exercises
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
-              <SportsEsportsIcon sx={{ fontSize: 60, color: 'secondary.main' }} />
-              <Typography variant="h6">Educational Games</Typography>
-              <Typography variant="body2" color="text.secondary">
-                Interactive learning games
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
-              <MenuBookIcon sx={{ fontSize: 60, color: 'success.main' }} />
-              <Typography variant="h6">Reading & Spelling</Typography>
-              <Typography variant="body2" color="text.secondary">
-                Reading comprehension and spelling practice
-              </Typography>
-            </Paper>
-          </Grid>
-        </Grid>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+          gap: 3, 
+          mt: 4 
+        }}>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+            <SchoolIcon sx={{ fontSize: 60, color: 'primary.main' }} />
+            <Typography variant="h6">Math Activities</Typography>
+            <Typography variant="body2" color="text.secondary">
+              Fun math problems and exercises
+            </Typography>
+          </Paper>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+            <SportsEsportsIcon sx={{ fontSize: 60, color: 'secondary.main' }} />
+            <Typography variant="h6">Educational Games</Typography>
+            <Typography variant="body2" color="text.secondary">
+              Interactive learning games
+            </Typography>
+          </Paper>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+            <MenuBookIcon sx={{ fontSize: 60, color: 'success.main' }} />
+            <Typography variant="h6">Reading & Spelling</Typography>
+            <Typography variant="body2" color="text.secondary">
+              Reading comprehension and spelling practice
+            </Typography>
+          </Paper>
+        </Box>
       </Box>
     </Container>
   );

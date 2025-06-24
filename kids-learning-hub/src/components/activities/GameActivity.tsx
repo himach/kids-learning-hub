@@ -8,7 +8,6 @@ import {
   CardContent,
   Button,
 } from '@mui/material';
-import Grid from '@mui/material/Grid';
 
 interface MemoryCard {
   id: number;
@@ -102,35 +101,39 @@ const GameActivity = () => {
             Moves: {moves}
           </Typography>
 
-          <Grid container spacing={2} sx={{ mt: 2 }}>
+          <Box sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))',
+            gap: 2,
+            mt: 2 
+          }}>
             {cards.map((card) => (
-              <Grid item xs={3} sm={2} md={1} key={card.id}>
-                <Card
+              <Card
+                key={card.id}
+                sx={{
+                  height: 100,
+                  cursor: 'pointer',
+                  transform: card.isFlipped ? 'rotateY(180deg)' : 'none',
+                  transition: 'transform 0.6s',
+                  transformStyle: 'preserve-3d',
+                }}
+                onClick={() => handleCardClick(card.id)}
+              >
+                <CardContent
                   sx={{
-                    height: 100,
-                    cursor: 'pointer',
-                    transform: card.isFlipped ? 'rotateY(180deg)' : 'none',
-                    transition: 'transform 0.6s',
-                    transformStyle: 'preserve-3d',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    fontSize: '2rem',
+                    backgroundColor: card.isMatched ? '#e8f5e9' : '#fff',
                   }}
-                  onClick={() => handleCardClick(card.id)}
                 >
-                  <CardContent
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '100%',
-                      fontSize: '2rem',
-                      backgroundColor: card.isMatched ? '#e8f5e9' : '#fff',
-                    }}
-                  >
-                    {card.isFlipped ? card.emoji : '❓'}
-                  </CardContent>
-                </Card>
-              </Grid>
+                  {card.isFlipped ? card.emoji : '❓'}
+                </CardContent>
+              </Card>
             ))}
-          </Grid>
+          </Box>
 
           {gameComplete && (
             <Box sx={{ mt: 4 }}>
