@@ -9,6 +9,7 @@ import ActivityTimer from './components/ActivityTimer';
 import MathActivity from './components/activities/MathActivity';
 import GameActivity from './components/activities/GameActivity';
 import ReadingActivity from './components/activities/ReadingActivity';
+import SpaceInvaders from './components/activities/_games/spaceDefender/SpaceInvaders';
 
 const theme = createTheme({
   palette: {
@@ -100,6 +101,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/timer/*" element={<ActivityLayout />} />
+          <Route path="/space-defender" element={<SpaceInvaders />} />
         </Routes>
       </Router>
     </ThemeProvider>
