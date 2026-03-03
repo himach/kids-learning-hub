@@ -1,5 +1,7 @@
 # Dependencies
 /node_modules
+MCP/node_modules
+MCP/package-lock.json
 /.pnp
 .pnp.js
 
