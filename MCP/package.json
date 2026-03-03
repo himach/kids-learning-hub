@@ -1,0 +1,13 @@
+{
+  "name": "kids-learning-hub-mcp",
+  "version": "1.0.0",
+  "description": "MCP server exposing Kids Learning Hub skills to GitHub Copilot agents",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1"
+  }
+}
